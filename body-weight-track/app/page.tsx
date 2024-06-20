@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex">
-      <p className="text-red-500 md:text-green-500 lg:text-blue-500">Hey</p>
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <p className="text-red-500 md:text-green-500 lg:text-blue-500">Welcome</p>
       <Image
         src="/food.jpeg"
         width={640}
@@ -18,6 +19,9 @@ export default function Home() {
         className="block md:hidden"
         alt="an image of pig"
       />
+      <Link key="dashboard" href="/dashboard">
+        <p>Get Started</p>
+      </Link>
     </div>
   );
 }
