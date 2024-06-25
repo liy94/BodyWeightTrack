@@ -1,5 +1,5 @@
 import { fetchWeight } from "@/app/lib/data";
-import WeightChart from "@/app/ui/dashboard/WeightChart";
+import WeightChart from "../ui/dashboard/weightChart";
 import { Weight } from "../lib/definitions";
 
 export default async function Page() {
