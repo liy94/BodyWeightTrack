@@ -7,10 +7,8 @@ export default async function Page() {
   console.log(weights);
   return (
     <div className="flex flex-col items-center">
-      <div className="min-w-full bg-blue-500 flex justify-center">
-        <h1 className="text-5xl ">Dashboard</h1>
-      </div>
       <WeightChart weights={weights} />
+      <form action="">hey</form>
     </div>
   );
 }
