@@ -10,8 +10,8 @@ const WeightChart = ({ weights }: { weights: Weight[] }) => {
       xAxis={[{ dataKey: "date" }]}
       series={[{ dataKey: "weight" }]}
       dataset={weights}
-      width={500}
-      height={300}
+      width={750}
+      height={400}
     />
   );
 };
