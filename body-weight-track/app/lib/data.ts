@@ -4,6 +4,7 @@ import { User, Weight } from "./definitions";
 export async function fetchWeight() {
   try {
     const data = await sql<Weight>`SELECT * FROM weights`;
+    console.log(data.rows);
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
