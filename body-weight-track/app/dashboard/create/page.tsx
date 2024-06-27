@@ -1,5 +1,6 @@
 import CancelButton from "@/app/ui/dashboard/CancelButton";
 import { createWeight } from "@/app/lib/actions";
+
 export default function Page() {
   return (
     <form action={createWeight}>

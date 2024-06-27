@@ -5,6 +5,7 @@ import { LineChart } from "@mui/x-charts/LineChart";
 import { Weight } from "@/app/lib/definitions";
 
 const WeightChart = ({ weights }: { weights: Weight[] }) => {
+  console.log(weights);
   return (
     <LineChart
       xAxis={[{ dataKey: "date" }]}
