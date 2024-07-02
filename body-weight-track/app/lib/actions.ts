@@ -1,5 +1,6 @@
 "use server";
 import { sql } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 
 export async function createWeight(formData: FormData) {
   //TODO: replace this hardcoded id with different user ids.
@@ -27,4 +28,6 @@ export async function createWeight(formData: FormData) {
   await sql`
     INSERT INTO weights (user_id, weight, date)
     VALUES (${userId}, ${weight}, ${date})`;
+
+  revalidatePath("/dashboard");
 }
