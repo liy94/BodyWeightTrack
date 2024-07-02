@@ -1,5 +1,9 @@
 import { sql } from "@vercel/postgres";
 import { User, Weight } from "./definitions";
+import { unstable_noStore as noStore } from "next/cache";
+
+// Stops the following functions from caching.
+noStore();
 
 export async function fetchWeight() {
   try {
