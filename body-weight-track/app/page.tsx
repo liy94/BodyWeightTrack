@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@mui/material";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
-      <p className="text-red-500 md:text-green-500 lg:text-blue-500">Welcome</p>
       <Image
         src="/food.jpeg"
-        width={640}
-        height={853}
+        width={320}
+        height={426}
         className="hidden md:block"
         alt="an image of food"
       />
@@ -20,7 +20,7 @@ export default function Home() {
         alt="an image of pig"
       />
       <Link key="dashboard" href="/dashboard">
-        <p>Get Started</p>
+        <Button size="large">Get Started</Button>
       </Link>
     </div>
   );
