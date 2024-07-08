@@ -61,3 +61,8 @@ export async function updateWeight(id: string, formData: FormData) {
   revalidatePath("/dashboard");
   redirect("/dashboard");
 }
+
+export async function deleteWeight(id: string) {
+  await sql`DELETE FROM weights WHERE id=${id}`;
+  revalidatePath("/dashboard");
+}

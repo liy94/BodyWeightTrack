@@ -1,7 +1,14 @@
 import { Button } from "@mui/material";
+import { deleteWeight } from "@/app/lib/actions";
 
 const DeleteButton = ({ id }: { id: string }) => {
-  return <Button>Delete</Button>;
+  const deleteWeightId = deleteWeight.bind(null, id);
+
+  return (
+    <form action={deleteWeightId}>
+      <Button type="submit">Delete</Button>
+    </form>
+  );
 };
 
 export default DeleteButton;
