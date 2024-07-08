@@ -21,7 +21,7 @@ const WeightChart = ({ weights }: { weights: Weight[] }) => {
 
   return (
     <LineChart
-      xAxis={[{ dataKey: "date" }]}
+      xAxis={[{ dataKey: "date", label: "Date", scaleType: "time" }]}
       series={[{ dataKey: "weight" }]}
       dataset={weights}
       width={dimentions.width}
