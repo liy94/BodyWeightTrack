@@ -1,15 +1,13 @@
 import Link from "next/link";
+import { Button } from "@mui/material";
 export default function CRUD() {
   return (
-    <div>
+    <div className="flex flex-col items-start">
       <Link key="Create" href="/dashboard/create">
-        Create
+        <Button>Create New Weight</Button>
       </Link>
       <Link key="Update" href="/dashboard/update">
-        Update
-      </Link>
-      <Link key="Delete" href="/dashboard/delete">
-        Delete
+        <Button>Update Existing Weight</Button>
       </Link>
     </div>
   );
