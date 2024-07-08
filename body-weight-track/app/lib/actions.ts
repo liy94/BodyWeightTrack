@@ -30,6 +30,7 @@ export async function createWeight(formData: FormData) {
     INSERT INTO weights (user_id, weight, date)
     VALUES (${userId}, ${weight}, ${date})`;
 
+  revalidatePath("/dashboard");
   redirect("/dashboard");
 }
 
