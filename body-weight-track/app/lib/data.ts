@@ -24,3 +24,13 @@ export async function fetchUser() {
     throw new Error("Failed to fetch user data.");
   }
 }
+
+export async function fetchWeightByID(id: string) {
+  try {
+    const data = await sql<Weight>`SELECT * FROM weights WHERE id = ${id}`;
+    return data.rows[0];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch weight by ID.");
+  }
+}
