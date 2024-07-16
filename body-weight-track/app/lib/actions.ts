@@ -2,6 +2,8 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 
 export async function createWeight(formData: FormData) {
   //TODO: replace this hardcoded id with different user ids.
@@ -66,4 +68,23 @@ export async function updateWeight(id: string, formData: FormData) {
 export async function deleteWeight(id: string) {
   await sql`DELETE FROM weights WHERE id=${id}`;
   revalidatePath("/dashboard");
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
+  }
 }
