@@ -1,19 +1,10 @@
 "use client";
 
 import { Button } from "@mui/material";
-import { authenticate } from "@/app/lib/actions";
 
 export default function LoginForm() {
-  const handleSubmit = async (formData: FormData) => {
-    try {
-      await authenticate(undefined, formData);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <form action={handleSubmit} className="flex flex-col items-center">
+    <form action="" className="flex flex-col items-center">
       <div>
         <p>Email</p>
         <input
