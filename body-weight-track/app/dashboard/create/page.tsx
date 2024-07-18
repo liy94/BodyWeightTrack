@@ -1,26 +1,40 @@
+"use client";
+
 import CancelButton from "@/app/ui/dashboard/CancelButton";
-import { createWeight } from "@/app/lib/actions";
+import { createWeight } from "@/app/lib/hongfeiActions";
+import { useState } from "react";
+import { Button } from "@mui/material";
 
 export default function Page() {
+  const [weight, setWeight] = useState(0);
+  const [date, setDate] = useState(new Date());
+
   return (
-    <form action={createWeight} className="flex flex-col items-center">
+    <div>
       <input
-        id="WeightInput"
-        name="WeightInput"
         type="number"
-        placeholder="Enter weight in kg"
         required
         min="0"
+        value={weight}
+        onChange={(event) => {
+          setWeight(parseFloat(event.target.value));
+        }}
       />
-      <input type="date" id="DateInput" name="DateInput" required />
-      <div className="flex">
-        <div className="p-2">
-          <CancelButton />
-        </div>
-        <button type="submit" className="p-2">
-          Confirm
-        </button>
-      </div>
-    </form>
+      <input
+        type="date"
+        required
+        onChange={(event) => {
+          setDate(new Date(event.target.value));
+        }}
+      />
+      <CancelButton />
+      <Button
+        onClick={() => {
+          createWeight(weight, date);
+        }}
+      >
+        Submit
+      </Button>
+    </div>
   );
 }
