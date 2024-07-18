@@ -1,16 +1,35 @@
-export default class LoginToken {
-  static LOGIN_TOKEN = "loginToken";
+import { LOGIN_TOKEN, USER_ID } from "./cookieConstants";
 
+const SIX_HOURS = (1000 * 6 * 3600).toString();
+const EXPIRED = new Date("2001-12-26T00:00:00Z").toUTCString();
+
+class Cookie {
   static save(token: string): void {
-    CookieManager.setValue(this.LOGIN_TOKEN, token);
+    CookieManager.setValue(this.getKey(), token);
   }
 
   static remove(): void {
-    CookieManager.setValue(this.LOGIN_TOKEN, "");
+    CookieManager.setValue(this.getKey(), "", EXPIRED);
+  }
+
+  static getKey(): string {
+    throw new Error("Must define key");
+  }
+}
+
+export class UserIDCookie extends Cookie {
+  static getKey(): string {
+    return USER_ID;
+  }
+}
+
+export default class LoginToken extends Cookie {
+  static getKey(): string {
+    return LOGIN_TOKEN;
   }
 
   static isUserLoggedIn(): boolean {
-    const cookieValue = CookieManager.getValue(this.LOGIN_TOKEN);
+    const cookieValue = CookieManager.getValue(LOGIN_TOKEN);
     return cookieValue != null && cookieValue != "";
   }
 }
@@ -24,7 +43,7 @@ class CookieManager {
 
   static dictToString(dict: BWTCookie): string {
     return Object.entries(dict)
-      .map((key, value) => `${key}=${value}`)
+      .map(([key, value]) => key + "=" + value)
       .join(this.SEPERATOR);
   }
 
@@ -40,11 +59,8 @@ class CookieManager {
     return values.reduce(reducer, {});
   }
 
-  static setValue(key: string, value: string): void {
-    const cookieDict = this.stringToDict(document.cookie);
-    cookieDict[key] = value;
-
-    document.cookie = this.dictToString(cookieDict);
+  static setValue(key: string, value: string, expiration = SIX_HOURS): void {
+    document.cookie = `${key}=${value}; expires=${expiration}`;
   }
 
   static getValue(key: string): string | null {

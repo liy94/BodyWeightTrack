@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import type { User } from "./definitions";
 
 const AUTH_SECRET = process.env.AUTH_SECRET as string;
 
@@ -18,9 +19,17 @@ export async function createWeight(weight: number, date: Date) {
   redirect("/dashboard");
 }
 
-export async function login(email: string, password: string): Promise<string> {
+export type AuthResult = {
+  token: string;
+  userId: string;
+};
+
+export async function login(
+  email: string,
+  password: string
+): Promise<AuthResult> {
   const result =
-    await sql`SELECT email, password FROM users WHERE email=${email}`;
+    await sql`SELECT email, password, id FROM users WHERE email=${email}`;
 
   const rowsCount = result.rowCount;
   if (rowsCount == 0) {
@@ -33,5 +42,8 @@ export async function login(email: string, password: string): Promise<string> {
     throw new Error("Incorrect Password");
   }
 
-  return jwt.sign({ email }, AUTH_SECRET, { expiresIn: "6h" });
+  return {
+    token: jwt.sign({ email }, AUTH_SECRET, { expiresIn: "6h" }),
+    userId: user.id,
+  };
 }
