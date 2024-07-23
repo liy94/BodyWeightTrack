@@ -3,12 +3,14 @@
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { signUpUser } from "@/app/lib/hongfeiActions";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const onSignUpClick = () => {
     if (userName == "") {
@@ -23,7 +25,16 @@ export default function Page() {
     }
 
     setErrorMessage("");
-    signUpUser(userName, email, password);
+    const result = signUpUser(userName, email, password);
+
+    const onSuccess = () => {
+      router.push("/login");
+    };
+
+    const onFailure = (error: Error) => {
+      setErrorMessage(error.message);
+    };
+    result.then(onSuccess).catch(onFailure);
   };
 
   return (
