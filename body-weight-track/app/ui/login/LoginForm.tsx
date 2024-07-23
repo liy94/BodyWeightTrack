@@ -5,6 +5,7 @@ import LoginToken, { UserIDCookie } from "@/app/lib/LoginToken";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import SignUpButton from "./SignUpButton";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -29,10 +30,6 @@ export default function LoginForm() {
     tokenPromise.then(onSuccess, onFailure);
   };
 
-  const onSignUpClick = () => {
-    console.log("sign up");
-  };
-
   return (
     <div>
       <input
@@ -50,7 +47,7 @@ export default function LoginForm() {
         onChange={(event) => setPassword(event.target.value.toString())}
       />
       <Button onClick={onLoginClick}>Login</Button>
-      <Button onClick={onSignUpClick}>Sign Up</Button>
+      <SignUpButton />
     </div>
   );
 }

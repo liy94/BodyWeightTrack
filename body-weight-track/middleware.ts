@@ -36,7 +36,7 @@ async function genIsTokenValid(
 
   try {
     const decoded = jwt.verify(token, AUTH_SECRET);
-    console.log(decoded);
+    console.log(decoded); //TODO: This is not properly console logged
   } catch (err) {
     console.log(err);
   }

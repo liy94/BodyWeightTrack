@@ -47,3 +47,25 @@ export async function login(
     userId: user.id,
   };
 }
+
+export async function signUpUser(
+  userName: string,
+  email: string,
+  password: string
+) {
+  try {
+    const existingUser =
+      await sql`SELECT id FROM users WHERE email = ${email} LIMIT 1`;
+    if ((existingUser.rowCount ?? 0) > 0) {
+      throw new Error("Email already in use");
+    }
+
+    const hashsedPassword = await bcrypt.hash(password, 10);
+    await sql`
+  INSERT INTO users (name, email, password)
+  VALUES (${userName}, ${email}, ${hashsedPassword})`;
+  } catch (error) {
+    console.log("Error occured while creating user: ", error);
+    throw error;
+  }
+}
