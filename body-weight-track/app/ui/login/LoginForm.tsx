@@ -29,6 +29,10 @@ export default function LoginForm() {
     tokenPromise.then(onSuccess, onFailure);
   };
 
+  const onSignUpClick = () => {
+    console.log("sign up");
+  };
+
   return (
     <div>
       <input
@@ -46,6 +50,7 @@ export default function LoginForm() {
         onChange={(event) => setPassword(event.target.value.toString())}
       />
       <Button onClick={onLoginClick}>Login</Button>
+      <Button onClick={onSignUpClick}>Sign Up</Button>
     </div>
   );
 }
