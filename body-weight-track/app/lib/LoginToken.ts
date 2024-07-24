@@ -1,3 +1,5 @@
+"use client";
+
 import { LOGIN_TOKEN, USER_ID } from "./cookieConstants";
 
 const SIX_HOURS = (1000 * 6 * 3600).toString();

@@ -3,7 +3,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { LOGIN_TOKEN, USER_ID } from "./app/lib/cookieConstants";
-import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { sql } from "@vercel/postgres";
 import { User } from "./app/lib/definitions";

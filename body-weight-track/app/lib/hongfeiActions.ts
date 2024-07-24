@@ -8,10 +8,13 @@ import jwt from "jsonwebtoken";
 import type { User, Weight } from "./definitions";
 import { NextRequest } from "next/server";
 import { LOGIN_TOKEN, USER_ID } from "./cookieConstants";
+import { cookies } from "next/headers";
 
 const AUTH_SECRET = process.env.AUTH_SECRET as string;
 
-export async function createWeight(weight: number, date: Date, userID: string) {
+export async function createWeight(weight: number, date: Date) {
+  const cookieStore = cookies();
+  const userID = cookieStore.get(USER_ID)?.value;
   await sql`
   INSERT INTO weights (user_id, weight, date)
   VALUES (${userID}, ${weight}, ${date.toISOString()})`;
