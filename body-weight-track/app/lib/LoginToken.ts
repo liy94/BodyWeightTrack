@@ -12,6 +12,10 @@ class Cookie {
     CookieManager.setValue(this.getKey(), "", EXPIRED);
   }
 
+  static get(): string {
+    return CookieManager.getValue(this.getKey()) ?? "";
+  }
+
   static getKey(): string {
     throw new Error("Must define key");
   }

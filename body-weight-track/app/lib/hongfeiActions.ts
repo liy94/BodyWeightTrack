@@ -5,15 +5,16 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import type { User } from "./definitions";
+import type { User, Weight } from "./definitions";
+import { NextRequest } from "next/server";
+import { LOGIN_TOKEN, USER_ID } from "./cookieConstants";
 
 const AUTH_SECRET = process.env.AUTH_SECRET as string;
 
-export async function createWeight(weight: number, date: Date) {
-  const id = "410544b2-4001-4271-9855-fec4b6a6442a";
+export async function createWeight(weight: number, date: Date, userID: string) {
   await sql`
   INSERT INTO weights (user_id, weight, date)
-  VALUES (${id}, ${weight}, ${date.toISOString()})`;
+  VALUES (${userID}, ${weight}, ${date.toISOString()})`;
 
   revalidatePath("/dashboard");
   redirect("/dashboard");
@@ -68,4 +69,18 @@ export async function signUpUser(
     console.log("Error occured while creating user: ", error);
     throw error;
   }
+}
+
+export async function fetchWeightByUserID(userID: string): Promise<Weight[]> {
+  const data =
+    await sql<Weight>`SELECT * FROM weights WHERE user_id = ${userID} ORDER BY date DESC`;
+  return data.rows;
+}
+
+export async function getUserIDFromRequest(request: NextRequest) {
+  return request.cookies.get(USER_ID);
+}
+
+export async function getTokenFromRequest(request: NextRequest) {
+  return request.cookies.get(LOGIN_TOKEN);
 }

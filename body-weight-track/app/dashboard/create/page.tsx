@@ -4,10 +4,13 @@ import CancelButton from "@/app/ui/dashboard/CancelButton";
 import { createWeight } from "@/app/lib/hongfeiActions";
 import { useState } from "react";
 import { Button } from "@mui/material";
+import { UserIDCookie } from "@/app/lib/LoginToken";
 
 export default function Page() {
   const [weight, setWeight] = useState(0);
   const [date, setDate] = useState(new Date());
+
+  const userID = UserIDCookie.get();
 
   return (
     <div>
@@ -30,7 +33,7 @@ export default function Page() {
       <CancelButton />
       <Button
         onClick={() => {
-          createWeight(weight, date);
+          createWeight(weight, date, userID);
         }}
       >
         Submit
