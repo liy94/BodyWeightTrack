@@ -2,7 +2,7 @@ import WeightChart from "../ui/dashboard/weightChart";
 import CRUD from "../ui/dashboard/CRUD";
 import { cookies } from "next/headers";
 import { USER_ID } from "../lib/cookieConstants";
-import { fetchWeightByUserID } from "../lib/hongfeiActions";
+import { fetchWeightByUserID } from "../lib/actions";
 
 export default async function Page() {
   const cookieStore = cookies();

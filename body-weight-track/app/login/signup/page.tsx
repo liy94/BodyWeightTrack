@@ -2,7 +2,7 @@
 
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import { signUpUser } from "@/app/lib/hongfeiActions";
+import { signUpUser } from "@/app/lib/actions";
 import { useRouter } from "next/navigation";
 
 export default function Page() {

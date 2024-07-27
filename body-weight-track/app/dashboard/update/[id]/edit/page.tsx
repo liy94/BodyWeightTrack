@@ -1,5 +1,5 @@
 import { updateWeight } from "@/app/lib/actions";
-import { fetchWeightByID } from "@/app/lib/data";
+import { fetchWeightByID } from "@/app/lib/actions";
 import CancelButton from "@/app/ui/dashboard/CancelButton";
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;

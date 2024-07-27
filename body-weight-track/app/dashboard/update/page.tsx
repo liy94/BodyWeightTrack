@@ -1,9 +1,8 @@
 import CancelButton from "@/app/ui/dashboard/CancelButton";
-import { fetchWeight } from "@/app/lib/data";
 import WeightTable from "@/app/ui/dashboard/WeightTable";
 import { cookies } from "next/headers";
 import { USER_ID } from "@/app/lib/cookieConstants";
-import { fetchWeightByUserID } from "@/app/lib/hongfeiActions";
+import { fetchWeightByUserID } from "@/app/lib/actions";
 
 export default async function Page() {
   const cookieStore = cookies();
