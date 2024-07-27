@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import type { Weight } from "./definitions";
+import type { User, Weight } from "./definitions";
 import { USER_ID } from "./cookieConstants";
 import { cookies } from "next/headers";
 
@@ -56,21 +56,17 @@ export async function signUpUser(
   email: string,
   password: string
 ) {
-  try {
-    const existingUser =
-      await sql`SELECT id FROM users WHERE email = ${email} LIMIT 1`;
-    if ((existingUser.rowCount ?? 0) > 0) {
-      throw new Error("Email already in use");
-    }
+  const existingUser =
+    await sql`SELECT id FROM users WHERE email = ${email} LIMIT 1`;
 
-    const hashsedPassword = await bcrypt.hash(password, 10);
-    await sql`
+  if ((existingUser.rowCount ?? 0) > 0) {
+    throw new Error("Email already in use");
+  }
+
+  const hashsedPassword = await bcrypt.hash(password, 10);
+  await sql`
   INSERT INTO users (name, email, password)
   VALUES (${userName}, ${email}, ${hashsedPassword})`;
-  } catch (error) {
-    console.log("Error occured while creating user: ", error);
-    throw error;
-  }
 }
 
 export async function fetchWeightByUserID(userID: string): Promise<Weight[]> {
@@ -114,11 +110,11 @@ export async function deleteWeight(id: string) {
 }
 
 export async function fetchWeightByID(id: string) {
-  try {
-    const data = await sql<Weight>`SELECT * FROM weights WHERE id = ${id}`;
-    return data.rows[0];
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch weight by ID.");
-  }
+  const data = await sql<Weight>`SELECT * FROM weights WHERE id = ${id}`;
+  return data.rows[0];
+}
+
+export async function fetchUserByUserID(id: string): Promise<User> {
+  const data = await sql<User>`SELECT * FROM users WHERE id = ${id}`;
+  return data.rows[0];
 }
