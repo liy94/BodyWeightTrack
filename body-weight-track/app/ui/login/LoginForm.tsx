@@ -2,7 +2,7 @@
 
 import { AuthResult, login } from "@/app/lib/hongfeiActions";
 import LoginToken, { UserIDCookie } from "@/app/lib/LoginToken";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SignUpButton from "./SignUpButton";
@@ -31,20 +31,20 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <input
-        type="email"
-        placeholder="Enter Your Email"
-        value={email}
+    <div className="flex flex-col min-h-screen justify-center items-center">
+      <TextField
         required
+        label="Email"
+        value={email}
         onChange={(event) => setEmail(event.target.value.toString())}
       />
-      <input
-        type="password"
-        placeholder="Enter Password"
+      <TextField
         required
+        label="Password"
         value={password}
-        onChange={(event) => setPassword(event.target.value.toString())}
+        onChange={(event) => {
+          setPassword(event.target.value.toString());
+        }}
       />
       <div>
         <Button onClick={onLoginClick}>Login</Button>
