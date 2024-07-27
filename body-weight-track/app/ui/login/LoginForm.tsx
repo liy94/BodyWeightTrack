@@ -2,7 +2,7 @@
 
 import { AuthResult, login } from "@/app/lib/hongfeiActions";
 import LoginToken, { UserIDCookie } from "@/app/lib/LoginToken";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SignUpButton from "./SignUpButton";
@@ -35,18 +35,20 @@ export default function LoginForm() {
       <TextField
         required
         label="Email"
+        sx={{ mt: 0.7, mb: 0.7, width: 1 / 2 }}
         value={email}
         onChange={(event) => setEmail(event.target.value.toString())}
       />
       <TextField
         required
         label="Password"
+        sx={{ mt: 0.7, mb: 0.7, width: 1 / 2 }}
         value={password}
         onChange={(event) => {
           setPassword(event.target.value.toString());
         }}
       />
-      <div>
+      <div className="flex w-1/2 justify-between">
         <Button onClick={onLoginClick}>Login</Button>
         <SignUpButton />
       </div>
