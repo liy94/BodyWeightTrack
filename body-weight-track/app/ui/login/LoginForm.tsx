@@ -43,6 +43,7 @@ export default function LoginForm() {
         required
         label="Password"
         sx={{ mt: 0.7, mb: 0.7, width: 1 / 2 }}
+        type="password"
         value={password}
         onChange={(event) => {
           setPassword(event.target.value.toString());
