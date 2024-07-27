@@ -31,7 +31,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <input
         type="email"
         placeholder="Enter Your Email"
@@ -46,8 +46,10 @@ export default function LoginForm() {
         value={password}
         onChange={(event) => setPassword(event.target.value.toString())}
       />
-      <Button onClick={onLoginClick}>Login</Button>
-      <SignUpButton />
+      <div>
+        <Button onClick={onLoginClick}>Login</Button>
+        <SignUpButton />
+      </div>
     </div>
   );
 }
