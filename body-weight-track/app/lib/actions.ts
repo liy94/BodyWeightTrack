@@ -1,5 +1,7 @@
 "use server";
 
+//TODO: async functions should be called "gen.....". non-async function should be called "get...."
+
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -117,4 +119,15 @@ export async function fetchWeightByID(id: string) {
 export async function fetchUserByUserID(id: string): Promise<User> {
   const data = await sql<User>`SELECT * FROM users WHERE id = ${id}`;
   return data.rows[0];
+}
+
+export async function fetchUserIDFromCookie(): Promise<string> {
+  const cookieStore = cookies();
+  const userID = cookieStore.get(USER_ID)?.value;
+
+  if (userID == null) {
+    return "";
+  }
+
+  return userID;
 }
