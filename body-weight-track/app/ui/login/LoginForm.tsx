@@ -2,7 +2,7 @@
 
 import { AuthResult, login } from "@/app/lib/actions";
 import LoginToken, { UserIDCookie } from "@/app/lib/LoginToken";
-import { Button, TextField } from "@mui/material";
+import { Backdrop, Button, CircularProgress, TextField } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SignUpButton from "./SignUpButton";
@@ -10,19 +10,22 @@ import SignUpButton from "./SignUpButton";
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const onLoginClick = () => {
+    setLoading(true);
     const tokenPromise = login(email, password);
 
     const onSuccess = ({ token, userId }: AuthResult) => {
       LoginToken.save(token);
       UserIDCookie.save(userId);
-
+      setLoading(false);
       router.push("/dashboard");
     };
 
     const onFailure = () => {
+      setLoading(false);
       LoginToken.remove();
       UserIDCookie.remove();
     };
@@ -53,6 +56,10 @@ export default function LoginForm() {
         <SignUpButton />
         <Button onClick={onLoginClick}>Login</Button>
       </div>
+
+      <Backdrop open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }
