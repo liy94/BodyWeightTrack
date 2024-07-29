@@ -20,7 +20,6 @@ export default function LoginForm() {
     const onSuccess = ({ token, userId }: AuthResult) => {
       LoginToken.save(token);
       UserIDCookie.save(userId);
-      setLoading(false);
       router.push("/dashboard");
     };
 
