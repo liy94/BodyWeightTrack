@@ -50,8 +50,8 @@ export default function LoginForm() {
         }}
       />
       <div className="flex w-1/2 justify-between">
-        <Button onClick={onLoginClick}>Login</Button>
         <SignUpButton />
+        <Button onClick={onLoginClick}>Login</Button>
       </div>
     </div>
   );
