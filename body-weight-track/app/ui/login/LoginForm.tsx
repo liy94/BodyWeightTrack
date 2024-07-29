@@ -32,6 +32,12 @@ export default function LoginForm() {
     tokenPromise.then(onSuccess, onFailure);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      onLoginClick();
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen justify-center items-center">
       <TextField
@@ -40,6 +46,7 @@ export default function LoginForm() {
         sx={{ mt: 0.7, mb: 0.7, width: 1 / 2 }}
         value={email}
         onChange={(event) => setEmail(event.target.value.toString())}
+        onKeyDown={handleKeyDown}
       />
       <TextField
         required
@@ -50,6 +57,7 @@ export default function LoginForm() {
         onChange={(event) => {
           setPassword(event.target.value.toString());
         }}
+        onKeyDown={handleKeyDown}
       />
       <div className="flex w-1/2 justify-between">
         <SignUpButton />
