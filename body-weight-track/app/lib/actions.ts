@@ -21,7 +21,6 @@ export async function createWeight(weight: number, date: Date) {
   VALUES (${userID}, ${weight}, ${date.toISOString()})`;
 
   revalidatePath("/dashboard");
-  redirect("/dashboard");
 }
 
 export type AuthResult = {
