@@ -1,10 +1,18 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTitle, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { ChangeEvent, useState } from "react";
 import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
+import { createWeight } from "@/app/lib/actions";
 
 export interface createDialogProps {
   open: boolean;
@@ -13,8 +21,8 @@ export interface createDialogProps {
 
 export default function CreateDialog(props: createDialogProps) {
   const { open, onClose } = props;
-  const [weight, setWeight] = useState<number>(0);
-  const [date, setDate] = useState<Dayjs | null>(dayjs());
+  const [weight, setWeight] = useState<number | null>(null);
+  const [date, setDate] = useState<Dayjs | null>(null);
 
   const onDateChange = (newValue: Dayjs | null) => {
     setDate(newValue);
@@ -25,6 +33,22 @@ export default function CreateDialog(props: createDialogProps) {
   ) => {
     const newVal = Math.max(0, parseInt(event.target.value));
     setWeight(newVal);
+  };
+
+  const handleCancelButtonClick = () => {
+    setWeight(null);
+    setDate(null);
+    onClose();
+  };
+
+  const handleSubmitButtonClick = () => {
+    if (weight == null || date == null) {
+      throw new Error("Oh No! Cannot have empty fields!");
+    }
+    createWeight(weight, date.toDate());
+
+    setWeight(null);
+    handleCancelButtonClick(); //clears data and closes dialog
   };
 
   return (
@@ -40,12 +64,17 @@ export default function CreateDialog(props: createDialogProps) {
           onChange={onWeightChange}
         />
         <DatePicker
+          slotProps={{ textField: { required: true } }}
           label="Select Date"
           value={date}
           onChange={onDateChange}
           sx={{ mt: 1, mb: 1, width: 1 }}
         />
       </DialogContent>
+      <DialogActions sx={{ pt: 0, pl: 3, pr: 3, pb: 1 }}>
+        <Button onClick={handleCancelButtonClick}>Cancel</Button>
+        <Button onClick={handleSubmitButtonClick}>Submit</Button>
+      </DialogActions>
     </Dialog>
   );
 }
