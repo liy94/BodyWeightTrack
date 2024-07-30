@@ -25,7 +25,7 @@ export default function Page() {
     }
 
     setErrorMessage("");
-    const result = signUpUser(userName, email, password);
+    const result = signUpUser(userName, email.toLowerCase(), password);
 
     const onSuccess = () => {
       router.push("/login");

@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   const onLoginClick = () => {
     setLoading(true);
-    const tokenPromise = login(email, password);
+    const tokenPromise = login(email.toLowerCase(), password);
 
     const onSuccess = ({ token, userId }: AuthResult) => {
       LoginToken.save(token);
