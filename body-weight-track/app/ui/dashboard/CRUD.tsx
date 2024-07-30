@@ -15,9 +15,6 @@ export default function CRUD() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="flex flex-col items-start">
-        <Link key="Create" href="/dashboard/create">
-          <Button>Create New Weight</Button>
-        </Link>
         <Link key="Update" href="/dashboard/update">
           <Button>Update Existing Weight</Button>
         </Link>
