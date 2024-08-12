@@ -14,21 +14,24 @@ export default function CRUD() {
   const handleCreateDialogClose = () => {
     setCreateDialogOpen(false);
   };
+  const [width, setWidth] = useState(750);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="flex flex-col">
+      <div className="flex justify-end w-3/4">
         <Link key="Update" href="/dashboard/update">
-          <Button>Update Existing Weight</Button>
+          {/* <Button>Update Existing Weight</Button> */}
+          <Fab color="secondary" aria-label="edit" className="bg-fuchsia-700">
+            <EditIcon />
+          </Fab>
         </Link>
         <Fab
+          sx={{ ml: 0.5 }}
           color="primary"
           onClick={() => setCreateDialogOpen(true)}
           className="bg-blue-500"
         >
           <AddIcon />
-        </Fab>
-        <Fab color="secondary" aria-label="edit" className="bg-fuchsia-700">
-          <EditIcon />
         </Fab>
         <CreateDialog
           open={createDialogOpen}
